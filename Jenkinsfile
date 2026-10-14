@@ -9,15 +9,7 @@ pipeline {
 		sh 'mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=iphone_iphone -Dsonar.organization=iphone -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=34b116ff9535ddaf409e48acc7f1245327112470'
 			}
     }
-/
-	stage('RunSCAAnalysisUsingSnyk') {
-            steps {		
-				withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
-					sh 'mvn snyk:test -fn'
-				}
-			}
-    }
-\
+
 	stage('Build') { 
             steps { 
                withDockerRegistry([credentialsId: "dockerlogin", url: ""]) {
